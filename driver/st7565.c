@@ -213,14 +213,14 @@ void ST7565_WriteByte(uint8_t Value)
 	SPI0->WDR = Value;
 }
 
-void ST7565_ToggleColorInversion(uint8_t Value) {
+void ST7565_ToggleColorInversion(uint8_t Value)
+{
+	uint8_t cmd = ST7565_CMD_INVERSE_DISPLAY | (Value ? 1 : 0); // Takes the register value and sets the selection bit to 1 for inverted or 0 for normal.
 
-	uint8_t cmd = ST7565_CMD_INVERSE_DISPLAY | (Value ? 1 : 0);
-
-	if(cmds[3] == cmd)
+	if(cmds[3] == cmd) // Compares if the current value is the same as the new value. If so, it returns and does nothing.
 		return;
 
-	cmds[3] ^= 1;
+	cmds[3] ^= 1; // XOR operation over the last bit of the register to toggle between inverted and normal display.
 
 	SPI_ToggleMasterMode(&SPI0->CR, false);
 	ST7565_WriteByte(cmds[3]);
