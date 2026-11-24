@@ -31,6 +31,7 @@
 #include "driver/eeprom.h"
 #include "driver/gpio.h"
 #include "driver/keyboard.h"
+#include "driver/st7565.h"
 #include "frequencies.h"
 #include "helper/battery.h"
 #include "misc.h"
@@ -225,6 +226,9 @@ int MENU_GetLimits(uint8_t menu_id, int32_t *pMin, int32_t *pMax)
 
 		#ifdef ENABLE_AM_FIX
 			case MENU_AM_FIX:
+		#endif
+		#ifdef ENABLE_DARK_MODE
+			case MENU_DARK_MODE:
 		#endif
 		#ifdef ENABLE_AUDIO_BAR
 			case MENU_MIC_BAR:
@@ -707,6 +711,13 @@ void MENU_AcceptSetting(void)
 				break;
 		#endif
 
+		#ifdef ENABLE_DARK_MODE
+			case MENU_DARK_MODE:
+				gSetting_DarkMode = gSubMenuSelection;
+				ST7565_ToggleColorInversion(gSetting_DarkMode);
+				break;
+		#endif
+
 		#ifdef ENABLE_NOAA
 			case MENU_NOAA_S:
 				gEeprom.NOAA_AUTO_SCAN = gSubMenuSelection;
@@ -1083,6 +1094,14 @@ void MENU_ShowCurrentSetting(void)
 			gSubMenuSelection = gSetting_AM_fix;
 			break;
 #endif
+
+#ifdef ENABLE_DARK_MODE
+		case MENU_DARK_MODE:
+			gSubMenuSelection = gSetting_DarkMode;
+			break;
+
+#endif
+
 		#ifdef ENABLE_NOAA
 			case MENU_NOAA_S:
 				gSubMenuSelection = gEeprom.NOAA_AUTO_SCAN;

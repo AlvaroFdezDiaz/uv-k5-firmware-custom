@@ -240,6 +240,11 @@ void SETTINGS_InitEEPROM(void)
 	gSetting_350EN             = (Data[5] < 2) ? Data[5] : true;
 	gSetting_ScrambleEnable    = (Data[6] < 2) ? Data[6] : true;
 	//gSetting_TX_EN             = (Data[7] & (1u << 0)) ? true : false;
+	
+	#ifdef ENABLE_DARK_MODE
+		gSetting_DarkMode      = !(Data[7] & (1u << 0)) ? true : false;
+	#endif
+
 	gSetting_live_DTMF_decoder = !!(Data[7] & (1u << 1));
 	gSetting_battery_text      = (((Data[7] >> 2) & 3u) <= 2) ? (Data[7] >> 2) & 3 : 2;
 	#ifdef ENABLE_AUDIO_BAR
@@ -581,6 +586,11 @@ void SETTINGS_SaveSettings(void)
 	State[5]  = gSetting_350EN;
 	State[6]  = gSetting_ScrambleEnable;
 	//if (!gSetting_TX_EN)             State[7] &= ~(1u << 0);
+	
+	#ifdef ENABLE_DARK_MODE
+		if (gSetting_DarkMode)        State[7] &= ~(1u << 0);
+	#endif
+	
 	if (!gSetting_live_DTMF_decoder) State[7] &= ~(1u << 1);
 	State[7] = (State[7] & ~(3u << 2)) | ((gSetting_battery_text & 3u) << 2);
 	#ifdef ENABLE_AUDIO_BAR

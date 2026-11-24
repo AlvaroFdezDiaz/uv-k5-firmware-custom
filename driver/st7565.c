@@ -212,3 +212,18 @@ void ST7565_WriteByte(uint8_t Value)
 	while ((SPI0->FIFOST & SPI_FIFOST_TFF_MASK) != SPI_FIFOST_TFF_BITS_NOT_FULL) {}
 	SPI0->WDR = Value;
 }
+
+void ST7565_ToggleColorInversion(uint8_t Value) {
+
+	uint8_t cmd = ST7565_CMD_INVERSE_DISPLAY | (Value ? 1 : 0);
+
+	if(cmds[3] == cmd)
+		return;
+
+	cmds[3] ^= 1;
+
+	SPI_ToggleMasterMode(&SPI0->CR, false);
+	ST7565_WriteByte(cmds[3]);
+	SPI_WaitForUndocumentedTxFifoStatusBit();
+	SPI_ToggleMasterMode(&SPI0->CR, true);
+}

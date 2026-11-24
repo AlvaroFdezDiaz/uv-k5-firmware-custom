@@ -252,6 +252,11 @@ typedef struct {
 	uint8_t               S0_LEVEL;
 	uint8_t               S9_LEVEL;
 #endif
+
+#ifdef ENABLE_DARK_MODE
+	uint8_t DARK_MODE;
+#endif
+
 } EEPROM_Config_t;
 
 extern EEPROM_Config_t gEeprom;

@@ -104,6 +104,9 @@ enum
 #ifdef ENABLE_AM_FIX
 	MENU_AM_FIX,
 #endif
+#ifdef ENABLE_DARK_MODE
+	MENU_DARK_MODE,
+#endif
 #ifdef ENABLE_NOAA
 	MENU_NOAA_S,
 #endif

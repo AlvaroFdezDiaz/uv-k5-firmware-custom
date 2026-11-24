@@ -117,6 +117,9 @@ const t_menu_item MenuList[] =
 #ifdef ENABLE_AM_FIX
 	{"AM Fix", VOICE_ID_INVALID,                       MENU_AM_FIX        },
 #endif
+#ifdef ENABLE_DARK_MODE
+	{"DarkMd", VOICE_ID_INVALID,                       MENU_DARK_MODE     },
+#endif
 #ifdef ENABLE_VOX
 	{"VOX",    VOICE_ID_VOX,                           MENU_VOX           },
 #endif
@@ -614,6 +617,9 @@ void UI_DisplayMenu(void)
 
 		#ifdef ENABLE_AM_FIX
 			case MENU_AM_FIX:
+		#endif
+		#ifdef ENABLE_DARK_MODE
+			case MENU_DARK_MODE:
 		#endif
 		case MENU_BCL:
 		case MENU_BEEP:

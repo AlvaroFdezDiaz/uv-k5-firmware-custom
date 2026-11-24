@@ -156,6 +156,10 @@ extern enum BacklightOnRxTx_t gSetting_backlight_on_tx_rx;
 	extern bool              gSetting_AM_fix;
 #endif
 
+#ifdef ENABLE_DARK_MODE
+	extern bool              gSetting_DarkMode;
+#endif
+
 #ifdef ENABLE_AUDIO_BAR
 	extern bool              gSetting_mic_bar;
 #endif

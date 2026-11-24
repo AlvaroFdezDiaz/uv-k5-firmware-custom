@@ -37,6 +37,7 @@ void ST7565_FixInterfGlitch(void);
 void ST7565_HardwareReset(void);
 void ST7565_SelectColumnAndLine(uint8_t Column, uint8_t Line);
 void ST7565_WriteByte(uint8_t Value);
+void ST7565_ToggleColorInversion(uint8_t value);
 
 #endif
 

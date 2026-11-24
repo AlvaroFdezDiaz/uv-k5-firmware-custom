@@ -43,6 +43,8 @@
 	#include "driver/uart.h"
 #endif
 
+#include "driver/st7565.h"
+
 #include "helper/battery.h"
 #include "helper/boot.h"
 
@@ -110,6 +112,10 @@ void Main(void)
 
 #ifdef ENABLE_AM_FIX
 	AM_fix_init();
+#endif
+
+#ifdef ENABLE_DARK_MODE
+	ST7565_ToggleColorInversion(gSetting_DarkMode);
 #endif
 
 	const BOOT_Mode_t  BootMode = BOOT_GetMode();
